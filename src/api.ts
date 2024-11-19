@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Configurar la base URL del backend
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api', // Cambia la URL al dominio de tu backend cuando lo despliegues
+  baseURL: 'https://certificate-backend-tdjz.onrender.com/api', // Cambia la URL al dominio de tu backend cuando lo despliegues
 });
 
 export const getCertificateDetails = async (code: string) => {
