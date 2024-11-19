@@ -26,6 +26,7 @@ const CertificateInputForm: React.FC = () => {
       // Si el código es válido, redirigir a la página de detalles
       navigate(`/certificate/${code}`);
     } catch (err) {
+      console.error('Error:', err.response || err);
       // Manejar errores (certificado no encontrado u otro problema)
       setError('El certificado no existe. Verifique el código ingresado.');
     } finally {
