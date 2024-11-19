@@ -12,7 +12,7 @@ const CertificateDetails: React.FC = () => {
   useEffect(() => {
     const fetchCertificateDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/certificates/${code}`);
+        const response = await axios.get(`https://certificate-backend-tdjz.onrender.com/api/certificates/${code}`);
         setCertificate(response.data);
       } catch (err: any) {
         setError('No se encontró el certificado. Por favor, verifica el código.');

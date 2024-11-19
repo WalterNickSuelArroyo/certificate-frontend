@@ -6,7 +6,7 @@ const CertificatePDFViewer: React.FC = () => {
 
   useEffect(() => {
     // Redirigir al PDF
-    window.location.href = `http://localhost:5000/api/certificates/${code}/pdf`;
+    window.location.href = `https://certificate-backend-tdjz.onrender.com/api/certificates/${code}/pdf`;
   }, [code]);
 
   return <p style={{ textAlign: 'center', marginTop: '50px' }}>Redirigiendo al PDF...</p>;
