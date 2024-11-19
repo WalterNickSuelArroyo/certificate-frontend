@@ -9,7 +9,7 @@ const CertificateForm: React.FC = () => {
     const handleVerify = async () => {
         try {
             // Llamada al backend para verificar el certificado
-            const response = await axios.get(`http://localhost:5000/api/verify/${code}`);
+            const response = await axios.get(`https://vercel.com/walters-projects-306cfd55/certificate-backend/9agMBWujG11etTpoSVYk69HazRYM/${code}`);
             setCertificate(response.data);
             setError('');
         } catch (err) {
