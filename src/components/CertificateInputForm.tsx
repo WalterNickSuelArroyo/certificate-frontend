@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+// Importa la imagen desde tu proyecto
+import bannerImage from '../assets/banner-1ff.png'; // Ajusta la ruta según tu estructura
+
 const CertificateInputForm: React.FC = () => {
   const [code, setCode] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -9,24 +12,18 @@ const CertificateInputForm: React.FC = () => {
   const navigate = useNavigate();
 
   const handleVerify = async () => {
-    // Validar que el campo no esté vacío
     if (!code.trim()) {
       setError('Por favor, ingrese un código válido.');
       return;
     }
 
-    // Limpiar errores anteriores
     setError(null);
     setLoading(true);
 
     try {
-      // Llamar al backend para verificar el código
       await axios.get(`https://certificate-backend-tdjz.onrender.com/api/certificates/${code}`);
-      
-      // Si el código es válido, redirigir a la página de detalles
       navigate(`/certificate/${code}`);
-    } catch (err) {
-      // Manejar errores (certificado no encontrado u otro problema)
+    } catch {
       setError('El certificado no existe. Verifique el código ingresado.');
     } finally {
       setLoading(false);
@@ -34,38 +31,78 @@ const CertificateInputForm: React.FC = () => {
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>Verificar Certificado</h1>
-      <input
-        type="text"
-        placeholder="Ingrese el código del certificado"
-        value={code}
-        onChange={(e) => setCode(e.target.value)}
+    <div style={{ fontFamily: 'Arial, sans-serif' }}>
+      {/* Banner Superior */}
+      <div
         style={{
-          padding: '10px',
-          fontSize: '16px',
-          width: '300px',
-          marginBottom: '20px',
-        }}
-      />
-      <br />
-      {/* Mostrar mensaje de error si lo hay */}
-      {error && <p style={{ color: 'red', marginBottom: '20px' }}>{error}</p>}
-      <button
-        onClick={handleVerify}
-        disabled={loading}
-        style={{
-          padding: '10px 20px',
-          fontSize: '16px',
-          cursor: loading ? 'not-allowed' : 'pointer',
-          backgroundColor: loading ? '#d3d3d3' : '#007BFF',
-          color: 'white',
-          border: 'none',
-          borderRadius: '5px',
+          position: 'relative',
+          width: '100%',
+          height: '40vh', // Siempre ocupa el 50% de la altura del viewport
+          display: 'flex',
+          justifyContent: 'center', // Centra la imagen horizontalmente
+          alignItems: 'center', // Centra la imagen verticalmente
+          overflow: 'hidden',
         }}
       >
-        {loading ? 'Verificando...' : 'Verificar'}
-      </button>
+        <img
+          src={bannerImage}
+          alt="Banner"
+          style={{
+            width: '100%', // La imagen siempre ocupa todo el ancho
+            height: '100%', // La imagen siempre ocupa toda la altura
+            objectFit: 'cover', // Ajusta la imagen para cubrir el contenedor sin distorsionarse
+          }}
+        />
+      </div>
+
+      {/* Formulario */}
+      <div style={{ textAlign: 'center', marginTop: '50px' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
+          <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#333' }}>Código:</span>
+          <input
+            type="text"
+            placeholder="Ingrese el código"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            style={{
+              padding: '10px',
+              fontSize: '16px',
+              width: '300px',
+              border: '1px solid #ccc',
+              borderRadius: '5px',
+            }}
+          />
+        </div>
+
+        {/* Mensaje de error */}
+        {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
+
+        {/* Botón Verificar */}
+        <div style={{ marginTop: '20px' }}>
+          <button
+            onClick={handleVerify}
+            disabled={loading}
+            style={{
+              padding: '10px 20px',
+              fontSize: '16px',
+              cursor: loading ? 'not-allowed' : 'pointer',
+              backgroundColor: loading ? '#d3d3d3' : '#dc3545',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              transition: 'transform 0.2s, background-color 0.3s',
+            }}
+            onMouseEnter={(e) => {
+              if (!loading) e.currentTarget.style.backgroundColor = '#c82333';
+            }}
+            onMouseLeave={(e) => {
+              if (!loading) e.currentTarget.style.backgroundColor = '#dc3545';
+            }}
+          >
+            {loading ? 'Verificando...' : 'Verificar'}
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
