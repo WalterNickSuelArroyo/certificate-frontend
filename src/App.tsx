@@ -1,12 +1,19 @@
 import React from 'react';
-import CertificateForm from './components/CertificateForm';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import CertificateInputForm from './components/CertificateInputForm';
+import CertificateDetails from './components/CertificateDetails';
+import CertificatePDFViewer from './components/CertificatePDFViewer';
 
 const App: React.FC = () => {
-    return (
-        <div style={{ textAlign: 'center', marginTop: '50px' }}>
-            <CertificateForm />
-        </div>
-    );
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<CertificateInputForm />} />
+        <Route path="/certificate/:code" element={<CertificateDetails />} />
+        <Route path="/certificate/:code/pdf" element={<CertificatePDFViewer />} />
+      </Routes>
+    </Router>
+  );
 };
 
 export default App;
